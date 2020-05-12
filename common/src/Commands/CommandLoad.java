@@ -7,6 +7,7 @@ import Expectations.ExpectedFile.ExpectedFileReadable;
 import Expectations.ExpectedFile.ExpectedFileRegular;
 import Generators.IdGenerator;
 import Utils.CSVLoader;
+import Utils.Context;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
  * Команда загрузки коллекции из файла
  */
 public class CommandLoad extends Command {
+	public static StringBuilder stringBuilderLoad;
 	private final CSVLoader csvLoader;
 	
 	public CommandLoad() {
@@ -34,10 +36,14 @@ public class CommandLoad extends Command {
 	
 	@Override
 	public void execute() {
+		stringBuilderLoad = new StringBuilder();
+		
 		this.context.collectionManager.clearCollection();
 		IdGenerator.clear();
-		this.csvLoader.createCollectionFromFile(commandArguments[0], context.lineReader, context.collectionManager);
+		this.csvLoader.createCollectionFromFile(commandArguments[0], Context.lineReader, context.collectionManager);
 		this.context.collectionManager.changeInitializationDate();
+		
+		stringBuilderResponse = new StringBuilder(stringBuilderLoad);
 	}
 	
 	@Override

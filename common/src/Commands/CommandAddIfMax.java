@@ -9,7 +9,7 @@ public class CommandAddIfMax extends CommandWithNotEmptyCollection {
 		Flat flatNew = getFlatNew();
 		
 		if (context.collectionManager.getIsCollectionEmpty()) {
-			context.collectionManager.addFlatToCollection(flatNew);
+			context.collectionManager.addFlatToCollectionAndPrint(flatNew);
 		} else {
 			Flat flatMax = getFlatMax();
 			addFlatNewToCollectionIfGreaterThatFlatMax(flatNew, flatMax);
@@ -18,14 +18,14 @@ public class CommandAddIfMax extends CommandWithNotEmptyCollection {
 	
 	private Flat getFlatNew() {
 		Flat flatNew = FlatCreator.getCreatedFlatFromTerminal(context.lineReader);
-		stringBuilder.append("Новый элемент ").append(flatNew.toString()).append("\n");
+		stringBuilderResponse.append("Новый элемент ").append(flatNew.toString()).append("\n");
 		System.out.println();
 		return flatNew;
 	}
 	
 	private Flat getFlatMax() {
 		Flat flatMax = context.collectionManager.getFlatMax();
-		stringBuilder.append("Наибольший элемент коллекции ").append(flatMax.toString()).append("\n");
+		stringBuilderResponse.append("Наибольший элемент коллекции ").append(flatMax.toString()).append("\n");
 		return flatMax;
 	}
 	
@@ -37,13 +37,13 @@ public class CommandAddIfMax extends CommandWithNotEmptyCollection {
 	}
 	
 	private void addFlatNewToCollection(Flat flatNew) {
-		stringBuilder.append("Значение нового элемента превышает значение наибольшего элемента коллекции\n");
-		context.collectionManager.addFlatToCollection(flatNew);
+		stringBuilderResponse.append("Значение нового элемента превышает значение наибольшего элемента коллекции\n");
+		context.collectionManager.addFlatToCollectionAndPrint(flatNew);
 	}
 	
 	private void dontAddFlatNewToCollection() {
-		stringBuilder.append("Значение нового элемента не превышает значение наибольшего элемента коллекции\n");
-		stringBuilder.append("В коллекцию элемент не добавлен");
+		stringBuilderResponse.append("Значение нового элемента не превышает значение наибольшего элемента коллекции\n");
+		stringBuilderResponse.append("В коллекцию элемент не добавлен");
 	}
 	
 	@Override

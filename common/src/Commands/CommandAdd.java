@@ -18,7 +18,7 @@ public class CommandAdd extends Command {
 	
 	@Override
 	public void execute() {
-		context.collectionManager.addFlatToCollection(flat);
+		context.collectionManager.addFlatToCollectionAndPrint(flat);
 	}
 	
 	@Override

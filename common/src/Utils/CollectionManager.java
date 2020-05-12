@@ -53,16 +53,13 @@ public class CollectionManager {
 		this.collection.clear();
 	}
 	
-	/**
-	 * Добавляет элемент квартиры в коллекцию
-	 * Добавляет id добавляемого элемента квартиры в генератор id
-	 * Выводит сообщение о добавлении
-	 *
-	 * @param flatToAdd элемент квартиры для добавления в коллекцию
-	 */
 	public void addFlatToCollection(Flat flatToAdd) {
 		this.collection.add(flatToAdd);
 		IdGenerator.addId(flatToAdd.getId());
+	}
+	
+	public void addFlatToCollectionAndPrint(Flat flatToAdd) {
+		this.addFlatToCollection(flatToAdd);
 		System.out.println("В коллекцию добавлен элемент " + flatToAdd.toString());
 	}
 	

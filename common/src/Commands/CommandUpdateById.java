@@ -37,7 +37,7 @@ public class CommandUpdateById extends CommandWithNotEmptyCollection {
 	}
 	
 	private void addFlatNew(Flat flatNew) {
-		context.collectionManager.addFlatToCollection(flatNew);
+		context.collectionManager.addFlatToCollectionAndPrint(flatNew);
 	}
 	
 	@Override

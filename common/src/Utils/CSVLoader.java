@@ -1,5 +1,6 @@
 package Utils;
 
+import Commands.CommandLoad;
 import Errors.IOErrors.CsvError;
 import Errors.IOErrors.FileNotExistError;
 import Errors.IOErrors.IOError;
@@ -19,22 +20,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
 
-/**
- * Загрузчик коллекции из csv файда
- */
 public class CSVLoader implements Serializable {
-	
-	
-	/**
-	 * Создает коллекцию из csv файла
-	 * Если неправильный заголовок - кидает ошибку
-	 * Не важно в каком порядке идут имена переменных из заголовка в csv файле
-	 * Если возникает ошибка в проверке какого либо поля создаваемого элемента, элемент не добавляется
-	 *
-	 * @param filePath          путь к csv файлу
-	 * @param lineReader        источник ввода
-	 * @param collectionManager управленца коллекцией
-	 */
 	public void createCollectionFromFile(String filePath, LineReader lineReader, CollectionManager collectionManager) {
 		List<String[]> lines = getLines(filePath);
 		
@@ -51,8 +37,9 @@ public class CSVLoader implements Serializable {
 			try {
 				Flat flat = FlatCreator.getCreatedFlatFromFile(lineReader, line, fieldToIndex);
 				collectionManager.addFlatToCollection(flat);
+				CommandLoad.stringBuilderLoad.append("В коллекцию добавлен элемент ").append(flat.toString()).append("\n");
 			} catch (InputErrorFull inputErrorFull) {
-				System.out.println(inputErrorFull.getMessage());
+				CommandLoad.stringBuilderLoad.append(inputErrorFull.getMessage()).append("\n");
 			}
 		}
 	}

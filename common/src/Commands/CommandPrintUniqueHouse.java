@@ -51,11 +51,11 @@ public class CommandPrintUniqueHouse extends CommandWithNotEmptyCollection {
 	
 	private void printUniqueHouses(List<House> uniqueHouses) {
 		if (uniqueHouses.isEmpty())
-			stringBuilder.append("Уникальных значений поля house - нет\n");
+			stringBuilderResponse.append("Уникальных значений поля house - нет\n");
 		else {
-			stringBuilder.append("Уникальные значения поля house: \n");
+			stringBuilderResponse.append("Уникальные значения поля house: \n");
 			for (House house : uniqueHouses)
-				stringBuilder.append(house.toString()).append("\n");
+				stringBuilderResponse.append(house.toString()).append("\n");
 		}
 	}
 	

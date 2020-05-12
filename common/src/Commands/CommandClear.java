@@ -8,7 +8,7 @@ public class CommandClear extends CommandWithNotEmptyCollection {
 	@Override
 	public void execute() {
 		this.context.collectionManager.getCollection().clear();
-		stringBuilder.append("Коллекция очищена");
+		stringBuilderResponse.append("Коллекция очищена");
 	}
 	
 	@Override

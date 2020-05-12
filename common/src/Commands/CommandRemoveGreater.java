@@ -23,7 +23,7 @@ public class CommandRemoveGreater extends CommandWithNotEmptyCollection {
 	
 	private Flat getCreatedFlat() {
 		Flat createdFlat = FlatCreator.getCreatedFlatFromTerminal(context.lineReader);
-		stringBuilder.append("Созданный элемент для сравнения ").append(createdFlat.toString());
+		stringBuilderResponse.append("Созданный элемент для сравнения ").append(createdFlat.toString());
 		return createdFlat;
 	}
 	

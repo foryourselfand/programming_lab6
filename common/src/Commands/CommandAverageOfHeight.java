@@ -21,7 +21,7 @@ public class CommandAverageOfHeight extends CommandWithNotEmptyCollection {
 		int itemsTotal = this.context.collectionManager.getCollectionSize();
 		float heightAverage = (float) heightTotal / itemsTotal;
 		
-		stringBuilder.append(String.format("Среднее значение поля height для всех элементов коллекции: %.2f\n", heightAverage));
+		stringBuilderResponse.append(String.format("Среднее значение поля height для всех элементов коллекции: %.2f\n", heightAverage));
 	}
 	
 	@Override

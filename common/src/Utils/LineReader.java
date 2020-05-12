@@ -29,10 +29,10 @@ public class LineReader {
 			if (sourceReader.notHasSomethingToRead())
 				sourceReader = getSourceReaderActive();
 			
-			System.out.print(prefix);
+//			System.out.print(prefix);
 			
 			try {
-				String lineRead = sourceReader.getLineReadPrintPostfix();
+				String lineRead = sourceReader.getLineReadPrintPrefixAndPostfix(prefix);
 				argument.checkArgument(lineRead);
 				
 				return lineRead;
