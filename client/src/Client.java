@@ -29,9 +29,9 @@ public class Client {
 			byte[] answerInBytes = new byte[DEFAULT_BUFFER_SIZE];
 			datagramPacket = new DatagramPacket(answerInBytes, answerInBytes.length);
 			datagramSocket.receive(datagramPacket);
-			String result = responseSerializationManager.readObject(answerInBytes).getAnswer();
+			String result = responseSerializationManager.readObject(answerInBytes).getResponse();
 			System.out.println("Получен ответ от сервера: ");
-			System.out.println(result);
+			System.out.print(result);
 		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}

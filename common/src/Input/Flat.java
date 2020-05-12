@@ -6,6 +6,7 @@ import SourseReaders.SourceReader;
 import Utils.LineReader;
 import Utils.ValueReader;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Comparator;
 
@@ -13,7 +14,7 @@ import java.util.Comparator;
  * Элемент хранящийся в коллекции
  * Содержит методы для создания, генерации, считывания (вместе с приведением к нужному типу), а так же геттеры
  */
-public class Flat implements Comparable<Flat> {
+public class Flat implements Comparable<Flat>, Serializable {
 	private Long id; // Поле не может быть null, значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
 	private String flatName; //Поле не может быть null, Строка не может быть пустой
 	private Coordinates coordinates; //Поле не может быть null

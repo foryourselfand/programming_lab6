@@ -82,9 +82,11 @@ public class CollectionManager {
 	/**
 	 * Выводит элементы коллекции в стандартный поток вывода
 	 */
-	public void showCollection() {
+	public String getCollectionString() {
+		StringBuilder stringBuilder = new StringBuilder();
 		for (Flat flat : this.collection)
-			System.out.println(flat);
+			stringBuilder.append(flat).append("\n");
+		return stringBuilder.toString();
 	}
 	
 	/**

@@ -14,7 +14,7 @@ public class CommandHelp extends Command {
 	@Override
 	public void execute() {
 		Iterator<Command> commands = this.context.commandsHolder.getCommands();
-		commands.forEachRemaining(command->System.out.println(command.getFullInformation()));
+		commands.forEachRemaining(command->stringBuilder.append(command.getFullInformation()).append("\n"));
 	}
 	
 	@Override

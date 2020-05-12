@@ -14,9 +14,9 @@ public class CommandHistory extends Command {
 	
 	@Override
 	public void execute() {
-		Iterator<Command> commandHistory = this.context.commandsHolder.getCommandsHistory();
-		System.out.format("Последние %d комманд (без их аргументов):\n", Context.HISTORY_SIZE);
-		commandHistory.forEachRemaining(command->System.out.println(command.getName()));
+		Iterator<Command> commandHistory = this.context.commandsHistoryManager.getCommandsHistory();
+		stringBuilder.append(String.format("Последние %d команд (без их аргументов):\n", Context.HISTORY_SIZE));
+		commandHistory.forEachRemaining(command->stringBuilder.append(command.getName()).append("\n"));
 	}
 	
 	@Override

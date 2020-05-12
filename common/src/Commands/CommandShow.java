@@ -11,7 +11,7 @@ public class CommandShow extends CommandWithNotEmptyCollection {
 	
 	@Override
 	public void execute() {
-		context.collectionManager.showCollection();
+		stringBuilder.append(context.collectionManager.getCollectionString());
 	}
 	
 	@Override

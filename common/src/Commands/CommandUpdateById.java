@@ -8,9 +8,6 @@ import Utils.FlatCreator;
 
 import java.util.List;
 
-/**
- * Команда обновления значения элемента коллекции, id которого равен заданному
- */
 public class CommandUpdateById extends CommandWithNotEmptyCollection {
 	public CommandUpdateById() {
 		super();
@@ -31,29 +28,14 @@ public class CommandUpdateById extends CommandWithNotEmptyCollection {
 		addFlatNew(flatNew);
 	}
 	
-	/**
-	 * Возвращает  созданную квартиру
-	 *
-	 * @return созданную квартиру
-	 */
 	private Flat createFlatNew() {
 		return FlatCreator.getCreatedFlatFromTerminal(this.context.lineReader);
 	}
 	
-	/**
-	 * Удаляет старую квартиру
-	 *
-	 * @param idToRemove id квартиры для удаоения
-	 */
 	private void removeFlatOld(long idToRemove) {
 		context.flatRemover.removeFlatsById(idToRemove);
 	}
 	
-	/**
-	 * Добавляет новую квартиру
-	 *
-	 * @param flatNew квартира для добавления
-	 */
 	private void addFlatNew(Flat flatNew) {
 		context.collectionManager.addFlatToCollection(flatNew);
 	}

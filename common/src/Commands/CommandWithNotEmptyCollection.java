@@ -12,15 +12,14 @@ public abstract class CommandWithNotEmptyCollection extends Command {
 	}
 	
 	@Override
-	public void printDescriptionAndExecute(Context context) {
-		this.validateCollectionSize();
-		super.printDescriptionAndExecute(context);
+	public void showDescriptionAndExecute(Context context) {
+		this.validateCollectionSize(context);
+		super.showDescriptionAndExecute(context);
 	}
 	
-	public void validateCollectionSize() {
+	public void validateCollectionSize(Context context) {
 		boolean collectionIsEmpty = context.collectionManager.getIsCollectionEmpty();
-		if (collectionIsEmpty) {
+		if (collectionIsEmpty)
 			throw new CollectionIsEmptyError();
-		}
 	}
 }

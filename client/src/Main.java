@@ -38,10 +38,9 @@ public class Main {
 				.addCommand(new CommandPrintUniqueHouse())
 		;
 		CommandsExecutor commandsExecutor = new CommandsExecutor(commandsHolder);
-		LineReader lineReader = new LineReader();
 		
-		while (lineReader.hasSomethingToRead()) {
-			String lineRead = lineReader.readLine(">>> ");
+		while (Context.lineReader.hasSomethingToRead()) {
+			String lineRead = Context.lineReader.readLine(">>> ");
 			commandsExecutor.tryToExecuteCommand(lineRead);
 		}
 	}

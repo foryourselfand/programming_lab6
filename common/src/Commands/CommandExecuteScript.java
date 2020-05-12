@@ -6,6 +6,7 @@ import Expectations.ExpectedFile.ExpectedFileReadable;
 import Expectations.ExpectedFile.ExpectedFileRegular;
 import Expectations.ExpectedFile.ExpectedFileWritable;
 import SourseReaders.SourceReaderFile;
+import Utils.Context;
 
 import java.util.List;
 
@@ -18,11 +19,6 @@ public class CommandExecuteScript extends Command {
 	}
 	
 	@Override
-	public void execute() {
-		context.lineReader.addSourceReader(new SourceReaderFile(String.valueOf(commandArguments[0])));
-	}
-	
-	@Override
 	protected void addArgumentValidators(List<Argument> arguments) {
 		arguments.add(new Argument(
 				"file_name",
@@ -30,6 +26,16 @@ public class CommandExecuteScript extends Command {
 				new ExpectedFileRegular(),
 				new ExpectedFileReadable(),
 				new ExpectedFileWritable()));
+	}
+	
+	@Override
+	public void preExecute() {
+		Context.lineReader.addSourceReader(new SourceReaderFile(String.valueOf(commandArguments[0])));
+	}
+	
+	@Override
+	public void execute() {
+	
 	}
 	
 	@Override

@@ -16,12 +16,13 @@ import com.opencsv.exceptions.CsvException;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.*;
 
 /**
  * Загрузчик коллекции из csv файда
  */
-public class CSVLoader {
+public class CSVLoader implements Serializable {
 	
 	
 	/**

@@ -28,11 +28,12 @@ public class CommandSave extends CommandWithNotEmptyCollection {
 		String filePath = commandArguments[0];
 		
 		this.context.csvSaver.saveCollectionToCSVFile(this.context.collectionManager.getCollection(), filePath);
-		System.out.println("Коллекция сохранена в файл");
+		stringBuilder.append("Коллекция сохранена в файл\n");
+		System.out.println();
 		
 		if (TempFileManager.isTempFileExist()) {
 			TempFileManager.deleteTempFile();
-			System.out.println("Временный файл удален, т.к. есть нормальная версия");
+			stringBuilder.append("Временный файл удален, т.к. есть нормальная версия\n");
 		}
 	}
 	

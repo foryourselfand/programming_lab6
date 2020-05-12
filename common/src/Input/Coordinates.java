@@ -1,7 +1,9 @@
 package Input;
 
-public class Coordinates {
-	private float x; //Значение поля должно юыть больше -292
+import java.io.Serializable;
+
+public class Coordinates implements Serializable {
+	private float x; //Значение поля должно быть больше -292
 	private Double y; //Значение поля должно быть больше -747, Поле не может быть null
 	
 	public float getX() {

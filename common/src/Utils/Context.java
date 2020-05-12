@@ -8,17 +8,17 @@ import java.time.LocalDate;
 public class Context {
 	public static final LocalDate INITIALIZATION_DATE = CreationDateGenerator.generateCreationDate();
 	public static final int HISTORY_SIZE = 12;
-	
+	public static LineReader lineReader = new LineReader();
 	public CommandsHolder commandsHolder;
-	public LineReader lineReader;
+	public CommandsHistoryManager commandsHistoryManager;
 	public CollectionManager collectionManager;
 	public FlatRemover flatRemover;
 	public CSVSaver csvSaver;
 	
 	public Context() {
 		this.collectionManager = new CollectionManager();
-		this.lineReader = new LineReader();
 		this.commandsHolder = new CommandsHolder();
+		this.commandsHistoryManager = new CommandsHistoryManager();
 		this.flatRemover = new FlatRemover(collectionManager);
 		this.csvSaver = new CSVSaver();
 		
@@ -51,7 +51,7 @@ public class Context {
 		if (args.length == 1) {
 			CommandLoad commandLoad = new CommandLoad();
 			commandLoad.validateArguments(args);
-			commandLoad.printDescriptionAndExecute(this);
+			commandLoad.showDescriptionAndExecute(this);
 		}
 //		else
 //			this.tryToLoadTempFile();

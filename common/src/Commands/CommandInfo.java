@@ -1,7 +1,5 @@
 package Commands;
 
-import Utils.Context;
-
 /**
  * Команда вывода в стандартный поток информации о коллекции (тип, дата инициализации, количество элементов и т.д.)
  */
@@ -12,10 +10,10 @@ public class CommandInfo extends Command {
 	
 	@Override
 	public void execute() {
-		System.out.println("Тип коллекции: " + context.collectionManager.getCollectionType());
-		System.out.println("Тип элементов коллекции: " + context.collectionManager.getCollectionElementType());
-		System.out.println("Дата инициализации коллекции: " + context.collectionManager.getCollectionInitializationDate());
-		System.out.println("Количество элементов в коллекции: " + context.collectionManager.getCollectionSize());
+		stringBuilder.append("Тип коллекции: ").append(context.collectionManager.getCollectionType()).append("\n");
+		stringBuilder.append("Тип элементов коллекции: ").append(context.collectionManager.getCollectionElementType()).append("\n");
+		stringBuilder.append("Дата инициализации коллекции: ").append(context.collectionManager.getCollectionInitializationDate()).append("\n");
+		stringBuilder.append("Количество элементов в коллекции: ").append(context.collectionManager.getCollectionSize()).append("\n");
 	}
 	
 	@Override

@@ -3,17 +3,17 @@ package Utils;
 import java.io.Serializable;
 
 public class Response implements Serializable {
-	private String answer;
+	private String response;
 	
-	public Response(String answer) {
-		this.answer = answer;
+	public Response(String response) {
+		this.response = response;
 	}
 	
-	public String getAnswer() {
-		return answer;
+	public String getResponse() {
+		return response;
 	}
 	
-	public void setAnswer(String answer) {
-		this.answer = answer;
+	public void setResponse(String response) {
+		this.response = response;
 	}
 }

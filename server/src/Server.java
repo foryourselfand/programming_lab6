@@ -1,4 +1,5 @@
 import Commands.Command;
+import Errors.InputErrors.InputError;
 import Utils.Context;
 import Utils.Response;
 import Utils.SerializationManager;
@@ -33,12 +34,11 @@ public class Server {
 				} while (address == null);
 				Command command = commandSerializationManager.readObject(buffer);
 				System.out.println("Сервер получил команду " + command);
-				String result = processCommand(context, command);
+				String response = processCommand(context, command);
 				
 				System.out.println("Команда " + command + " выполнена, посылаю ответ клиенту...");
 				
-				Response response = new Response(result);
-				byte[] answer = responseSerializationManager.writeObject(response);
+				byte[] answer = responseSerializationManager.writeObject(new Response(response));
 				byteBuffer = ByteBuffer.wrap(answer);
 				channel.send(byteBuffer, address);
 			}
@@ -52,10 +52,16 @@ public class Server {
 //			new SaveCommand().execute(application);
 //			log.info("Server receive command " + new SaveCommand().toString());
 //		}
-		command.printDescriptionAndExecute(context);
+		try {
+			command.showDescriptionAndExecute(context);
+			context.commandsHistoryManager.addCommandToHistory(command);
+			return command.getResponse();
+		} catch (InputError inputError) {
+			return inputError.getMessage() + "\n";
+		}
+
 //		application.getCommandHistory().add(command);
 //		application.setCollection(command.getCollection());
 //		application.setIdList(command.getIdList());
-		return "result";
 	}
 }

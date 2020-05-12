@@ -22,7 +22,10 @@ public class CommandsExecutor {
 		
 		try {
 			Command commandToExecute = commandsHolder.getCommandByName(commandName);
+			
 			commandToExecute.validateArguments(commandArguments);
+			commandToExecute.preExecute();
+			
 			Client.sendCommandAndReceiveAnswer(commandToExecute);
 		} catch (InputError error) {
 			System.out.println(error.getMessage());

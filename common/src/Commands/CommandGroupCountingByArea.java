@@ -38,10 +38,10 @@ public class CommandGroupCountingByArea extends CommandWithNotEmptyCollection {
 	
 	private void printGroupCountingByArea(Map<Integer, List<Flat>> areaToFlatListMap) {
 		for (Map.Entry<Integer, List<Flat>> areaToFlatList : areaToFlatListMap.entrySet()) {
-			System.out.println("Группа area=" + areaToFlatList.getKey() + "; Количество=" + areaToFlatList.getValue().size());
+			stringBuilder.append("Группа area=").append(areaToFlatList.getKey()).append("; Количество=").append(areaToFlatList.getValue().size());
 			for (Flat flat : areaToFlatList.getValue())
-				System.out.println(flat.toString());
-			System.out.println();
+				stringBuilder.append(flat.toString());
+			stringBuilder.append("\n");
 		}
 	}
 	

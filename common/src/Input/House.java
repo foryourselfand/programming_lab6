@@ -1,8 +1,9 @@
 package Input;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class House {
+public class House implements Serializable {
 	private String houseName; //Поле не может быть null
 	private Integer year; //Значение поля должно быть больше 0
 	private Long numberOfFloors; //Поле может юыть null, Значение поля должно быть больше 0

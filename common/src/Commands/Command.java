@@ -15,8 +15,10 @@ public abstract class Command implements Serializable {
 	
 	protected Context context;
 	protected String[] commandArguments;
+	protected StringBuilder stringBuilder;
 	
 	public Command() {
+		stringBuilder = new StringBuilder();
 		arguments = new ArrayList<>();
 		addArgumentValidators(this.arguments);
 		
@@ -40,10 +42,13 @@ public abstract class Command implements Serializable {
 		this.commandArguments = commandArguments;
 	}
 	
-	public void printDescriptionAndExecute(Context context) {
+	public void showDescriptionAndExecute(Context context) {
 		this.context = context;
-		System.out.println(getDescription());
+		stringBuilder.append(getDescription()).append("\n");
 		this.execute();
+	}
+	
+	public void preExecute() {
 	}
 	
 	public abstract void execute();
@@ -81,5 +86,11 @@ public abstract class Command implements Serializable {
 	public abstract String getDescription();
 	
 	protected void addArgumentValidators(List<Argument> arguments) {
+	}
+	
+	public String getResponse() {
+		String response = stringBuilder.toString();
+		stringBuilder = new StringBuilder();
+		return response;
 	}
 }

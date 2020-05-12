@@ -4,13 +4,14 @@ import Errors.InputErrors.InputError;
 import Errors.WrongArgumentErrors.WrongArgumentError;
 import Input.Variable;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
 /**
  * Аргумент с именем и ожиданиями
  */
-public class Argument {
+public class Argument implements Serializable {
 	private final String name;
 	private final List<Expectation> expectations;
 	
