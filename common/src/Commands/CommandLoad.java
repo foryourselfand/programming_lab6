@@ -7,18 +7,17 @@ import Expectations.ExpectedFile.ExpectedFileReadable;
 import Expectations.ExpectedFile.ExpectedFileRegular;
 import Generators.IdGenerator;
 import Utils.CSVLoader;
-import Utils.Context;
 
 import java.util.List;
 
 /**
  * Команда загрузки коллекции из файла
  */
-public class CommandLoad extends CommandSaveAfterExecute {
+public class CommandLoad extends Command {
 	private final CSVLoader csvLoader;
 	
-	public CommandLoad(Context context) {
-		super(context);
+	public CommandLoad() {
+		super();
 		csvLoader = new CSVLoader();
 	}
 	
@@ -33,15 +32,8 @@ public class CommandLoad extends CommandSaveAfterExecute {
 		));
 	}
 	
-	/**
-	 * Очищает коллекцию
-	 * Очищает id
-	 * Создает коллекцию из файла
-	 * Меняет дату инициализации
-	 * @param commandArguments аргументы
-	 */
 	@Override
-	public void execute(String[] commandArguments) {
+	public void execute() {
 		this.context.collectionManager.clearCollection();
 		IdGenerator.clear();
 		this.csvLoader.createCollectionFromFile(commandArguments[0], context.lineReader, context.collectionManager);

@@ -1,17 +1,12 @@
 package Commands;
 
-import Utils.Context;
-
-/**
- * Команда очищения коллекции
- */
-public class CommandClear extends CommandWithNotEmptyCollectionSaveAfterExecute {
-	public CommandClear(Context context) {
-		super(context);
+public class CommandClear extends CommandWithNotEmptyCollection {
+	public CommandClear() {
+		super();
 	}
 	
 	@Override
-	public void execute(String[] commandArguments) {
+	public void execute() {
 		this.context.collectionManager.getCollection().clear();
 		System.out.println("Коллекция очищена");
 	}

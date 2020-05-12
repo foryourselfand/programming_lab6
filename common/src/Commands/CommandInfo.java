@@ -6,12 +6,12 @@ import Utils.Context;
  * Команда вывода в стандартный поток информации о коллекции (тип, дата инициализации, количество элементов и т.д.)
  */
 public class CommandInfo extends Command {
-	public CommandInfo(Context context) {
-		super(context);
+	public CommandInfo() {
+		super();
 	}
 	
 	@Override
-	public void execute(String[] commandArguments) {
+	public void execute() {
 		System.out.println("Тип коллекции: " + context.collectionManager.getCollectionType());
 		System.out.println("Тип элементов коллекции: " + context.collectionManager.getCollectionElementType());
 		System.out.println("Дата инициализации коллекции: " + context.collectionManager.getCollectionInitializationDate());

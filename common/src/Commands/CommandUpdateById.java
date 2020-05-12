@@ -4,7 +4,6 @@ import Expectations.Argument;
 import Expectations.ExpectedIdExist;
 import Expectations.ExpectedType.ExpectedLong;
 import Input.Flat;
-import Utils.Context;
 import Utils.FlatCreator;
 
 import java.util.List;
@@ -12,9 +11,9 @@ import java.util.List;
 /**
  * Команда обновления значения элемента коллекции, id которого равен заданному
  */
-public class CommandUpdateById extends CommandWithNotEmptyCollectionSaveAfterExecute {
-	public CommandUpdateById(Context context) {
-		super(context);
+public class CommandUpdateById extends CommandWithNotEmptyCollection {
+	public CommandUpdateById() {
+		super();
 	}
 	
 	@Override
@@ -25,7 +24,7 @@ public class CommandUpdateById extends CommandWithNotEmptyCollectionSaveAfterExe
 	}
 	
 	@Override
-	public void execute(String[] commandArguments) {
+	public void execute() {
 		long idToRemove = Long.parseLong(commandArguments[0]);
 		Flat flatNew = createFlatNew();
 		removeFlatOld(idToRemove);

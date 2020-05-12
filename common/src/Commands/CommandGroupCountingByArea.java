@@ -1,7 +1,6 @@
 package Commands;
 
 import Input.Flat;
-import Utils.Context;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,21 +11,16 @@ import java.util.Map;
  * Команда группировки эллементов коллекции по значению поля площади
  */
 public class CommandGroupCountingByArea extends CommandWithNotEmptyCollection {
-	public CommandGroupCountingByArea(Context context) {
-		super(context);
+	public CommandGroupCountingByArea() {
+		super();
 	}
 	
 	@Override
-	public void execute(String[] commandArguments) {
+	public void execute() {
 		Map<Integer, List<Flat>> areaToFlatListMap = getAreaToFlatListMap();
 		printGroupCountingByArea(areaToFlatListMap);
 	}
 	
-	/**
-	 * Проходится по всем элементам коллекции, добавляет квартиру в словарь по значению площади
-	 *
-	 * @return Словарь. Ключ: площадь. Значение: квартира
-	 */
 	private Map<Integer, List<Flat>> getAreaToFlatListMap() {
 		Map<Integer, List<Flat>> areaToFlatListMap = new HashMap<>();
 		for (Flat flat : context.collectionManager.getCollection()) {
@@ -42,12 +36,6 @@ public class CommandGroupCountingByArea extends CommandWithNotEmptyCollection {
 		return areaToFlatListMap;
 	}
 	
-	/**
-	 * Выводит сгруппированные элементы коллекции по значению площади
-	 * Само значение площади, и количество элементов в группе
-	 *
-	 * @param areaToFlatListMap Словарь. Ключ: площадь. Значение: квартира
-	 */
 	private void printGroupCountingByArea(Map<Integer, List<Flat>> areaToFlatListMap) {
 		for (Map.Entry<Integer, List<Flat>> areaToFlatList : areaToFlatListMap.entrySet()) {
 			System.out.println("Группа area=" + areaToFlatList.getKey() + "; Количество=" + areaToFlatList.getValue().size());

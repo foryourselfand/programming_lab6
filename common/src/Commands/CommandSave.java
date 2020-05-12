@@ -2,14 +2,13 @@ package Commands;
 
 import Expectations.Argument;
 import Expectations.ExpectedFile.*;
-import Utils.Context;
 import Utils.TempFileManager;
 
 import java.util.List;
 
 public class CommandSave extends CommandWithNotEmptyCollection {
-	public CommandSave(Context context) {
-		super(context);
+	public CommandSave() {
+		super();
 	}
 	
 	@Override
@@ -25,7 +24,7 @@ public class CommandSave extends CommandWithNotEmptyCollection {
 	}
 	
 	@Override
-	public void execute(String[] commandArguments) {
+	public void execute() {
 		String filePath = commandArguments[0];
 		
 		this.context.csvSaver.saveCollectionToCSVFile(this.context.collectionManager.getCollection(), filePath);

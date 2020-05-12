@@ -1,17 +1,16 @@
 package Commands;
 
-import Utils.Context;
 
 /**
  * Команда вывода в стандартный поток всех элементов коллекции в строковом представлении
  */
 public class CommandShow extends CommandWithNotEmptyCollection {
-	public CommandShow(Context context) {
-		super(context);
+	public CommandShow() {
+		super();
 	}
 	
 	@Override
-	public void execute(String[] commandArguments) {
+	public void execute() {
 		context.collectionManager.showCollection();
 	}
 	

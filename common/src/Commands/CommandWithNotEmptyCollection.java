@@ -7,29 +7,18 @@ import Utils.Context;
  * Команда, для выполнения которых необходима не пустая коллекция
  */
 public abstract class CommandWithNotEmptyCollection extends Command {
-	public CommandWithNotEmptyCollection(Context context) {
-		super(context);
+	public CommandWithNotEmptyCollection() {
+		super();
 	}
 	
-	/**
-	 * Проверяет количество элементов коллекции
-	 * Выполняется только если коллекция не пустая
-	 * @param commandArguments аргументы комманды
-	 */
 	@Override
-	public void executeWithArgumentsValidation(String[] commandArguments) {
+	public void printDescriptionAndExecute(Context context) {
 		this.validateCollectionSize();
-		this.validateArguments(commandArguments);
-		
-		this.printDescriptionAndExecute(commandArguments);
+		super.printDescriptionAndExecute(context);
 	}
 	
-	/**
-	 * Проверяет количество эллементов коллекции
-	 * Если пусто - пробрасывает исключение
-	 */
 	public void validateCollectionSize() {
-		boolean collectionIsEmpty = this.context.collectionManager.getIsCollectionEmpty();
+		boolean collectionIsEmpty = context.collectionManager.getIsCollectionEmpty();
 		if (collectionIsEmpty) {
 			throw new CollectionIsEmptyError();
 		}

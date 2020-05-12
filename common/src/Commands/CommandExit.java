@@ -1,22 +1,14 @@
 package Commands;
 
-import Utils.Context;
 import Utils.TempFileManager;
 
-/**
- * Команда выхода
- */
 public class CommandExit extends Command {
-	public CommandExit(Context context) {
-		super(context);
+	public CommandExit() {
+		super();
 	}
 	
-	/**
-	 * Если есть несохраненные данные, убеждается что точно нужно выйти
-	 * @param commandArguments аргументы
-	 */
 	@Override
-	public void execute(String[] commandArguments) {
+	public void execute() {
 		if (TempFileManager.isTempFileExist()) {
 			System.out.println("Есть несохраненные данные. Уверены что хотите выйти без сохранения данных?");
 			

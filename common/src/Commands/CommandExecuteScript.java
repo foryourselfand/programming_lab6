@@ -6,7 +6,6 @@ import Expectations.ExpectedFile.ExpectedFileReadable;
 import Expectations.ExpectedFile.ExpectedFileRegular;
 import Expectations.ExpectedFile.ExpectedFileWritable;
 import SourseReaders.SourceReaderFile;
-import Utils.Context;
 
 import java.util.List;
 
@@ -14,12 +13,12 @@ import java.util.List;
  * Команда исполнения скрипта
  */
 public class CommandExecuteScript extends Command {
-	public CommandExecuteScript(Context context) {
-		super(context);
+	public CommandExecuteScript() {
+		super();
 	}
 	
 	@Override
-	public void execute(String[] commandArguments) {
+	public void execute() {
 		context.lineReader.addSourceReader(new SourceReaderFile(String.valueOf(commandArguments[0])));
 	}
 	

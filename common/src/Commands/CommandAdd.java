@@ -4,23 +4,15 @@ import Input.Flat;
 import Utils.Context;
 import Utils.FlatCreator;
 
-/**
- * Комманда добавления нового элемента в коллекцию
- */
-public class CommandAdd extends CommandSaveAfterExecute {
-	public CommandAdd(Context context) {
-		super(context);
+public class CommandAdd extends Command {
+	public CommandAdd() {
+		super();
 	}
 	
-	/**
-	 * Создает квартиру из терминала, добавляет в коллекцию
-	 *
-	 * @param commandArguments аргументы
-	 */
 	@Override
-	public void execute(String[] commandArguments) {
-		Flat flat = FlatCreator.getCreatedFlatFromTerminal(this.context.lineReader);
-		this.context.collectionManager.addFlatToCollection(flat);
+	public void execute() {
+		Flat flat = FlatCreator.getCreatedFlatFromTerminal(context.lineReader);
+		context.collectionManager.addFlatToCollection(flat);
 	}
 	
 	@Override

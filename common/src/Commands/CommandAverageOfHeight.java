@@ -1,25 +1,14 @@
 package Commands;
 
 import Input.Flat;
-import Utils.Context;
 
-/**
- * Команда вывода среднего значения поля height для всех эллементов коллекции
- */
 public class CommandAverageOfHeight extends CommandWithNotEmptyCollection {
-	public CommandAverageOfHeight(Context context) {
-		super(context);
+	public CommandAverageOfHeight() {
+		super();
 	}
 	
-	/**
-	 * Проходит по всем элементам коллекции
-	 * Пропускает если высота null
-	 * Если не null добавляет к общей высоте
-	 * Выводит среднее значение
-	 * @param commandArguments аргументы
-	 */
 	@Override
-	public void execute(String[] commandArguments) {
+	public void execute() {
 		int heightTotal = 0;
 		
 		for (Flat flat : this.context.collectionManager.getCollection()) {

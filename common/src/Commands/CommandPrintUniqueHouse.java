@@ -2,7 +2,6 @@ package Commands;
 
 import Input.Flat;
 import Input.House;
-import Utils.Context;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,22 +12,17 @@ import java.util.Map;
  * Команда вывода уникальных значений поля дом
  */
 public class CommandPrintUniqueHouse extends CommandWithNotEmptyCollection {
-	public CommandPrintUniqueHouse(Context context) {
-		super(context);
+	public CommandPrintUniqueHouse() {
+		super();
 	}
 	
 	@Override
-	public void execute(String[] commandArguments) {
+	public void execute() {
 		Map<House, Integer> houseToCountMap = getHouseToCountMap();
 		List<House> uniqueHouses = getUniqueHouses(houseToCountMap);
 		printUniqueHouses(uniqueHouses);
 	}
 	
-	/**
-	 * Возвращает Словарь. Ключ: дом. Значение: Количество конкретного значения дома в коллекции
-	 *
-	 * @return Словарь. Ключ: дом. Значение: Количество конкретного значения дома в коллекции
-	 */
 	private Map<House, Integer> getHouseToCountMap() {
 		Map<House, Integer> houseToCountMap = new HashMap<>();
 		
@@ -46,12 +40,6 @@ public class CommandPrintUniqueHouse extends CommandWithNotEmptyCollection {
 		return houseToCountMap;
 	}
 	
-	/**
-	 * Возвращает лист уникальных домов
-	 *
-	 * @param houseToCountMap Словарь. Ключ: дом. Значение: Количество конкретного значения дома в коллекции
-	 * @return лист уникальных домов
-	 */
 	private List<House> getUniqueHouses(Map<House, Integer> houseToCountMap) {
 		List<House> uniqueHouses = new ArrayList<>();
 		for (Map.Entry<House, Integer> houseToCount : houseToCountMap.entrySet()) {
@@ -61,11 +49,6 @@ public class CommandPrintUniqueHouse extends CommandWithNotEmptyCollection {
 		return uniqueHouses;
 	}
 	
-	/**
-	 * Выводит уникальные значения дома
-	 *
-	 * @param uniqueHouses
-	 */
 	private void printUniqueHouses(List<House> uniqueHouses) {
 		if (uniqueHouses.isEmpty())
 			System.out.println("Уникальных значений поля house - нет");
