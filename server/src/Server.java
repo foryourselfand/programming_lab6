@@ -1,4 +1,6 @@
 import Commands.Command;
+import Commands.CommandExit;
+import Commands.CommandSave;
 import Errors.InputErrors.InputError;
 import Utils.Context;
 import Utils.Response;
@@ -48,20 +50,18 @@ public class Server {
 	}
 	
 	public static String processCommand(Context context, Command command) {
-//		if (command instanceof ExitCommand) {
-//			new SaveCommand().execute(application);
-//			log.info("Server receive command " + new SaveCommand().toString());
-//		}
 		try {
+			if (command instanceof CommandExit) {
+				Command commandSave = new CommandSave();
+				commandSave.showDescriptionAndExecute(context);
+				return commandSave.getResponse();
+			}
+			
 			command.showDescriptionAndExecute(context);
 			context.commandsHistoryManager.addCommandToHistory(command);
 			return command.getResponse();
 		} catch (InputError inputError) {
 			return inputError.getMessage() + "\n";
 		}
-
-//		application.getCommandHistory().add(command);
-//		application.setCollection(command.getCollection());
-//		application.setIdList(command.getIdList());
 	}
 }

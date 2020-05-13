@@ -2,12 +2,12 @@ import Utils.Context;
 
 import java.io.IOException;
 
-public class Main {
+public class ServerMain {
 	public static void main(String[] args) {
 		int port = 8000;
 		
 		Context context = new Context();
-		context.loadCollectionFromArgsOrRestoreFromTempFile(args);
+		context.loadCollectionFromArgs(args);
 		
 		try {
 			Server.connect(port);

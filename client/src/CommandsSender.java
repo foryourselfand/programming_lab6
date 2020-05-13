@@ -1,13 +1,14 @@
 import Commands.Command;
+import Commands.CommandExit;
 import Errors.InputErrors.InputError;
 import Utils.CommandsHolder;
 
 import java.util.Arrays;
 
-public class CommandsExecutor {
+public class CommandsSender {
 	private final CommandsHolder commandsHolder;
 	
-	public CommandsExecutor(CommandsHolder commandsHolder) {
+	public CommandsSender(CommandsHolder commandsHolder) {
 		this.commandsHolder = commandsHolder;
 	}
 	

@@ -1,6 +1,6 @@
 package Utils;
 
-import Commands.Command;
+import Commands.*;
 import Errors.NoSuchCommandError;
 
 import java.util.Iterator;
@@ -12,6 +12,7 @@ public class CommandsHolder {
 	
 	public CommandsHolder() {
 		commands = new LinkedHashMap<>();
+		setUpCommands();
 	}
 	
 	public CommandsHolder addCommand(Command command) {
@@ -24,6 +25,26 @@ public class CommandsHolder {
 			throw new NoSuchCommandError(name);
 		
 		return this.commands.get(name);
+	}
+	
+	public void setUpCommands() {
+		this
+				.addCommand(new CommandHelp())
+				.addCommand(new CommandInfo())
+				.addCommand(new CommandShow())
+				.addCommand(new CommandAdd())
+				.addCommand(new CommandUpdateById())
+				.addCommand(new CommandRemoveById())
+				.addCommand(new CommandClear())
+				.addCommand(new CommandLoad())
+				.addCommand(new CommandExecuteScript())
+				.addCommand(new CommandExit())
+				.addCommand(new CommandAddIfMax())
+				.addCommand(new CommandRemoveGreater())
+				.addCommand(new CommandHistory())
+				.addCommand(new CommandAverageOfHeight())
+				.addCommand(new CommandGroupCountingByArea())
+				.addCommand(new CommandPrintUniqueHouse());
 	}
 	
 	public Iterator<Command> getCommands() {

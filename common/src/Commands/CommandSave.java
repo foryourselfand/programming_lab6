@@ -25,16 +25,9 @@ public class CommandSave extends CommandWithNotEmptyCollection {
 	
 	@Override
 	public void execute() {
-		String filePath = commandArguments[0];
-		
+		String filePath = TempFileManager.getTempFilePath();
 		this.context.csvSaver.saveCollectionToCSVFile(this.context.collectionManager.getCollection(), filePath);
 		stringBuilderResponse.append("Коллекция сохранена в файл\n");
-		System.out.println();
-		
-		if (TempFileManager.isTempFileExist()) {
-			TempFileManager.deleteTempFile();
-			stringBuilderResponse.append("Временный файл удален, т.к. есть нормальная версия\n");
-		}
 	}
 	
 	

@@ -1,4 +1,5 @@
 import Commands.Command;
+import Commands.CommandExit;
 import Utils.Response;
 import Utils.SerializationManager;
 
@@ -32,6 +33,9 @@ public class Client {
 			String result = responseSerializationManager.readObject(answerInBytes).getResponse();
 			System.out.println("Получен ответ от сервера: ");
 			System.out.print(result);
+			
+			if (command instanceof CommandExit)
+				command.execute();
 		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}

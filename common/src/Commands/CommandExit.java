@@ -1,7 +1,5 @@
 package Commands;
 
-import Utils.TempFileManager;
-
 public class CommandExit extends Command {
 	public CommandExit() {
 		super();
@@ -9,25 +7,7 @@ public class CommandExit extends Command {
 	
 	@Override
 	public void execute() {
-		if (TempFileManager.isTempFileExist()) {
-			System.out.println("Есть несохраненные данные. Уверены что хотите выйти без сохранения данных?");
-			
-			String choice;
-			do {
-				choice = this.context.lineReader.readLine("Выйти без сохранения данных? y / n: ").trim().toLowerCase();
-			} while (! choice.equals("y") && ! choice.equals("n"));
-			
-			if (choice.equals("y")) {
-				System.out.println("Программа завершена без сохранения в файл");
-				TempFileManager.deleteTempFile();
-				exit();
-			} else {
-				System.out.println("Программа не завершена");
-			}
-		} else {
-			exit();
-		}
-		
+		exit();
 	}
 	
 	public void exit() {
