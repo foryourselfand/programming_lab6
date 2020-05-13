@@ -5,7 +5,7 @@ import Utils.Context;
 import Utils.FlatCreator;
 
 public class CommandAdd extends Command {
-	private Flat flat;
+	private Flat flatNew;
 	
 	public CommandAdd() {
 		super();
@@ -13,12 +13,12 @@ public class CommandAdd extends Command {
 	
 	@Override
 	public void preExecute() {
-		flat = FlatCreator.getCreatedFlatFromTerminal(Context.lineReader);
+		flatNew = FlatCreator.getCreatedFlatFromTerminal(Context.lineReader);
 	}
 	
 	@Override
 	public void execute() {
-		context.collectionManager.addFlatToCollectionAndPrint(flat);
+		context.collectionManager.addFlatToCollectionAndPrint(flatNew, stringBuilderResponse);
 	}
 	
 	@Override

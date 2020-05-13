@@ -34,8 +34,9 @@ public class Client {
 			System.out.println("Получен ответ от сервера: ");
 			System.out.print(result);
 			
-			if (command instanceof CommandExit)
+			if (command instanceof CommandExit) {
 				command.execute();
+			}
 		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}

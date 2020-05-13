@@ -50,13 +50,15 @@ public class Server {
 	}
 	
 	public static String processCommand(Context context, Command command) {
-		try {
-			if (command instanceof CommandExit) {
-				Command commandSave = new CommandSave();
-				commandSave.showDescriptionAndExecute(context);
-				return commandSave.getResponse();
+		if (command instanceof CommandExit) {
+			try {
+				new CommandSave().showDescriptionAndExecute(context);
+			} catch (InputError ignored) {
 			}
-			
+			return command.getDescription();
+		}
+		
+		try {
 			command.showDescriptionAndExecute(context);
 			context.commandsHistoryManager.addCommandToHistory(command);
 			return command.getResponse();

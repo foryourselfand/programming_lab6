@@ -1,15 +1,21 @@
 package Commands;
 
 import Input.Flat;
+import Utils.Context;
 import Utils.FlatCreator;
 
-public class CommandAddIfMax extends CommandWithNotEmptyCollection {
+public class CommandAddIfMax extends Command {
+	private Flat flatNew;
+	
+	@Override
+	public void preExecute() {
+		flatNew = getFlatNew();
+	}
+	
 	@Override
 	public void execute() {
-		Flat flatNew = getFlatNew();
-		
 		if (context.collectionManager.getIsCollectionEmpty()) {
-			context.collectionManager.addFlatToCollectionAndPrint(flatNew);
+			context.collectionManager.addFlatToCollectionAndPrint(flatNew, stringBuilderResponse);
 		} else {
 			Flat flatMax = getFlatMax();
 			addFlatNewToCollectionIfGreaterThatFlatMax(flatNew, flatMax);
@@ -17,9 +23,8 @@ public class CommandAddIfMax extends CommandWithNotEmptyCollection {
 	}
 	
 	private Flat getFlatNew() {
-		Flat flatNew = FlatCreator.getCreatedFlatFromTerminal(context.lineReader);
+		Flat flatNew = FlatCreator.getCreatedFlatFromTerminal(Context.lineReader);
 		stringBuilderResponse.append("Новый элемент ").append(flatNew.toString()).append("\n");
-		System.out.println();
 		return flatNew;
 	}
 	
@@ -38,7 +43,7 @@ public class CommandAddIfMax extends CommandWithNotEmptyCollection {
 	
 	private void addFlatNewToCollection(Flat flatNew) {
 		stringBuilderResponse.append("Значение нового элемента превышает значение наибольшего элемента коллекции\n");
-		context.collectionManager.addFlatToCollectionAndPrint(flatNew);
+		context.collectionManager.addFlatToCollectionAndPrint(flatNew, stringBuilderResponse);
 	}
 	
 	private void dontAddFlatNewToCollection() {

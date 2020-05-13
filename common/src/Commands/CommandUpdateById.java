@@ -4,11 +4,14 @@ import Expectations.Argument;
 import Expectations.ExpectedIdExist;
 import Expectations.ExpectedType.ExpectedLong;
 import Input.Flat;
+import Utils.Context;
 import Utils.FlatCreator;
 
 import java.util.List;
 
 public class CommandUpdateById extends CommandWithNotEmptyCollection {
+	private Flat flatNew;
+	
 	public CommandUpdateById() {
 		super();
 	}
@@ -21,15 +24,19 @@ public class CommandUpdateById extends CommandWithNotEmptyCollection {
 	}
 	
 	@Override
+	public void preExecute() {
+		flatNew = createFlatNew();
+	}
+	
+	@Override
 	public void execute() {
 		long idToRemove = Long.parseLong(commandArguments[0]);
-		Flat flatNew = createFlatNew();
 		removeFlatOld(idToRemove);
 		addFlatNew(flatNew);
 	}
 	
 	private Flat createFlatNew() {
-		return FlatCreator.getCreatedFlatFromTerminal(this.context.lineReader);
+		return FlatCreator.getCreatedFlatFromTerminal(Context.lineReader);
 	}
 	
 	private void removeFlatOld(long idToRemove) {
@@ -37,7 +44,7 @@ public class CommandUpdateById extends CommandWithNotEmptyCollection {
 	}
 	
 	private void addFlatNew(Flat flatNew) {
-		context.collectionManager.addFlatToCollectionAndPrint(flatNew);
+		context.collectionManager.addFlatToCollectionAndPrint(flatNew, stringBuilderResponse);
 	}
 	
 	@Override

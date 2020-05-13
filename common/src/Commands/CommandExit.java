@@ -21,6 +21,6 @@ public class CommandExit extends Command {
 	
 	@Override
 	public String getDescription() {
-		return "завершить программу (без сохранения в файл)";
+		return "завершить программу (с сохранением в временный файл)";
 	}
 }

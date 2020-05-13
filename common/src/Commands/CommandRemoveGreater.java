@@ -1,6 +1,7 @@
 package Commands;
 
 import Input.Flat;
+import Utils.Context;
 import Utils.FlatCreator;
 
 import java.util.ArrayList;
@@ -10,19 +11,25 @@ import java.util.List;
  * Команда удаления из коллекции элементов, превышающих заданный
  */
 public class CommandRemoveGreater extends CommandWithNotEmptyCollection {
+	private Flat flatNew;
+	
 	public CommandRemoveGreater() {
 		super();
 	}
 	
 	@Override
+	public void preExecute() {
+		flatNew = getCreatedFlat();
+	}
+	
+	@Override
 	public void execute() {
-		Flat flatNew = getCreatedFlat();
 		List<Long> idsToRemove = getIdsOfFlatsGreaterThatFlat(flatNew);
 		removeFlatsGreaterThatFlat(idsToRemove);
 	}
 	
 	private Flat getCreatedFlat() {
-		Flat createdFlat = FlatCreator.getCreatedFlatFromTerminal(context.lineReader);
+		Flat createdFlat = FlatCreator.getCreatedFlatFromTerminal(Context.lineReader);
 		stringBuilderResponse.append("Созданный элемент для сравнения ").append(createdFlat.toString());
 		return createdFlat;
 	}
