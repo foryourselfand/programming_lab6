@@ -1,5 +1,6 @@
 import Commands.Command;
 import Commands.CommandExit;
+import Errors.TimeoutError;
 import Utils.Response;
 import Utils.SerializationManager;
 
@@ -8,6 +9,7 @@ import java.net.*;
 
 public class Client {
 	private static final int DEFAULT_BUFFER_SIZE = 65536;
+	private static final int TIMEOUT = 5000;
 	private static final SerializationManager<Command> commandSerializationManager = new SerializationManager<>();
 	private static final SerializationManager<Response> responseSerializationManager = new SerializationManager<>();
 	private static SocketAddress socketAddress;
@@ -29,7 +31,13 @@ public class Client {
 			System.out.println("Запрос отправлен на сервер...");
 			byte[] answerInBytes = new byte[DEFAULT_BUFFER_SIZE];
 			datagramPacket = new DatagramPacket(answerInBytes, answerInBytes.length);
-			datagramSocket.receive(datagramPacket);
+			datagramSocket.setSoTimeout(TIMEOUT);
+			try {
+				datagramSocket.receive(datagramPacket);
+			} catch (SocketTimeoutException socketTimeoutException) {
+				throw new TimeoutError();
+			}
+			
 			String result = responseSerializationManager.readObject(answerInBytes).getResponse();
 			System.out.println("Получен ответ от сервера: ");
 			System.out.print(result);
