@@ -15,7 +15,8 @@ public class CommandAddIfMax extends Command {
 	@Override
 	public void execute() {
 		if (context.collectionManager.getIsCollectionEmpty()) {
-			context.collectionManager.addFlatToCollectionAndPrint(flatNew, stringBuilderResponse);
+			context.collectionManager.addFlatToCollection(flatNew);
+			stringBuilderResponse.append("В коллекцию добавлен элемент ").append(flatNew.toString()).append("\n");
 		} else {
 			Flat flatMax = getFlatMax();
 			addFlatNewToCollectionIfGreaterThatFlatMax(flatNew, flatMax);
@@ -31,6 +32,7 @@ public class CommandAddIfMax extends Command {
 	private Flat getFlatMax() {
 		Flat flatMax = context.collectionManager.getFlatMax();
 		stringBuilderResponse.append("Наибольший элемент коллекции ").append(flatMax.toString()).append("\n");
+		System.out.println();
 		return flatMax;
 	}
 	
@@ -43,7 +45,8 @@ public class CommandAddIfMax extends Command {
 	
 	private void addFlatNewToCollection(Flat flatNew) {
 		stringBuilderResponse.append("Значение нового элемента превышает значение наибольшего элемента коллекции\n");
-		context.collectionManager.addFlatToCollectionAndPrint(flatNew, stringBuilderResponse);
+		context.collectionManager.addFlatToCollection(flatNew);
+		stringBuilderResponse.append("В коллекцию добавлен элемент ").append(flatNew.toString()).append("\n");
 	}
 	
 	private void dontAddFlatNewToCollection() {

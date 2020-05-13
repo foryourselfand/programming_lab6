@@ -4,12 +4,9 @@ import Input.Flat;
 import Utils.Context;
 import Utils.FlatCreator;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-/**
- * Команда удаления из коллекции элементов, превышающих заданный
- */
 public class CommandRemoveGreater extends CommandWithNotEmptyCollection {
 	private Flat flatNew;
 	
@@ -24,27 +21,30 @@ public class CommandRemoveGreater extends CommandWithNotEmptyCollection {
 	
 	@Override
 	public void execute() {
-		List<Long> idsToRemove = getIdsOfFlatsGreaterThatFlat(flatNew);
-		removeFlatsGreaterThatFlat(idsToRemove);
+		int collectionSizeStart = this.context.collectionManager.getCollectionSize();
+		
+		this.context.collectionManager.getCollection().removeIf(flat->flat.compareTo(flatNew) < 0);
+		Context.idGenerator.getIds().removeIf(id->flatNew.getId().equals(id));
+		
+		int collectionSizeEnd = this.context.collectionManager.getCollectionSize();
+		boolean isCollectionSizeChanged = collectionSizeEnd != collectionSizeStart;
+		
+		if (isCollectionSizeChanged) {
+			List<Long> idsGreater = context.collectionManager.getCollection()
+					.stream()
+					.map(Flat::getId)
+					.sorted()
+					.collect(Collectors.toList());
+			stringBuilderResponse.append("Удаленные элементы").append(idsGreater.toString()).append("\n");
+		} else {
+			stringBuilderResponse.append("В коллекции нет элементов превышающих заданный").append("\n");
+		}
 	}
 	
 	private Flat getCreatedFlat() {
 		Flat createdFlat = FlatCreator.getCreatedFlatFromTerminal(Context.lineReader);
 		stringBuilderResponse.append("Созданный элемент для сравнения ").append(createdFlat.toString());
 		return createdFlat;
-	}
-	
-	private List<Long> getIdsOfFlatsGreaterThatFlat(Flat flatNew) {
-		List<Long> idsToRemove = new ArrayList<>();
-		for (Flat flatCurrent : context.collectionManager.getCollection()) {
-			if (flatCurrent.compareTo(flatNew) > 0)
-				idsToRemove.add(flatCurrent.getId());
-		}
-		return idsToRemove;
-	}
-	
-	private void removeFlatsGreaterThatFlat(List<Long> idsToRemove) {
-		context.flatRemover.removeFlatsById(idsToRemove);
 	}
 	
 	@Override

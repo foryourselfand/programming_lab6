@@ -1,11 +1,9 @@
 package Utils;
 
-import Generators.IdGenerator;
 import Input.Flat;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 
@@ -30,7 +28,7 @@ public class CollectionManager {
 	}
 	
 	public Flat getFlatMax() {
-		return Collections.max(collection);
+		return collection.stream().max(Flat::compareTo).get();
 	}
 	
 	public void clearCollection() {
@@ -39,18 +37,12 @@ public class CollectionManager {
 	
 	public void addFlatToCollection(Flat flatToAdd) {
 		this.collection.add(flatToAdd);
-		IdGenerator.addId(flatToAdd.getId());
+		Context.idGenerator.addId(flatToAdd.getId());
 	}
 	
-	public void addFlatToCollectionAndPrint(Flat flatToAdd, StringBuilder stringBuilder) {
-		this.addFlatToCollection(flatToAdd);
-		stringBuilder.append("В коллекцию добавлен элемент ").append(flatToAdd.toString()).append("\n");
-	}
-	
-	public void removeFlatFromCollection(Flat flatToRemove) {
-		this.collection.remove(flatToRemove);
-		IdGenerator.removeId(flatToRemove.getId());
-		System.out.println("Из коллекции удален элемент " + flatToRemove.toString());
+	public void removeFlatFromCollectionById(Long idToRemove) {
+		getCollection().removeIf(flat->flat.getId().equals(idToRemove));
+		Context.idGenerator.removeId(idToRemove);
 	}
 	
 	public String getCollectionString(Iterable<Flat> collection) {

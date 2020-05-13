@@ -5,6 +5,7 @@ import Errors.InputErrors.InputError;
 import Utils.Context;
 import Utils.Response;
 import Utils.SerializationManager;
+import Utils.TempFileManager;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -52,7 +53,9 @@ public class Server {
 	public static String processCommand(Context context, Command command) {
 		if (command instanceof CommandExit) {
 			try {
-				new CommandSave().showDescriptionAndExecute(context);
+				Command commandSave = new CommandSave();
+				commandSave.validateArguments(new String[]{TempFileManager.getTempFilePath()});
+				commandSave.showDescriptionAndExecute(context);
 			} catch (InputError ignored) {
 			}
 			return command.getDescription();

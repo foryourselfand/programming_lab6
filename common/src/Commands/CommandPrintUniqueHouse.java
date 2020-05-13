@@ -3,7 +3,9 @@ package Commands;
 import Input.Flat;
 import Input.House;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Команда вывода уникальных значений поля дом
@@ -15,39 +17,14 @@ public class CommandPrintUniqueHouse extends CommandWithNotEmptyCollection {
 	
 	@Override
 	public void execute() {
-		Map<House, Integer> houseToCountMap = getHouseToCountMap();
-		List<House> uniqueHouses = getUniqueHouses(houseToCountMap);
-		
-		List<House> uniqueHousesSort = new ArrayList<>(uniqueHouses);
-		uniqueHousesSort.sort(Comparator.comparing(House::getHouseName));
+		List<House> uniqueHousesSort =
+				context.collectionManager.getCollection().stream()
+						.map(Flat::getHouse)
+						.distinct()
+						.sorted(Comparator.comparing(House::getHouseName))
+						.collect(Collectors.toList());
 		
 		printUniqueHouses(uniqueHousesSort);
-	}
-	
-	private Map<House, Integer> getHouseToCountMap() {
-		Map<House, Integer> houseToCountMap = new HashMap<>();
-		
-		for (Flat flat : this.context.collectionManager.getCollection()) {
-			House houseCurrent = flat.getHouse();
-			
-			if (! houseToCountMap.containsKey(houseCurrent))
-				houseToCountMap.put(houseCurrent, 1);
-			else {
-				Integer houseToCountPrevious = houseToCountMap.get(houseCurrent);
-				Integer houseToCountIncremented = houseToCountPrevious + 1;
-				houseToCountMap.put(houseCurrent, houseToCountIncremented);
-			}
-		}
-		return houseToCountMap;
-	}
-	
-	private List<House> getUniqueHouses(Map<House, Integer> houseToCountMap) {
-		List<House> uniqueHouses = new ArrayList<>();
-		for (Map.Entry<House, Integer> houseToCount : houseToCountMap.entrySet()) {
-			if (houseToCount.getValue() == 1)
-				uniqueHouses.add(houseToCount.getKey());
-		}
-		return uniqueHouses;
 	}
 	
 	private void printUniqueHouses(List<House> uniqueHouses) {

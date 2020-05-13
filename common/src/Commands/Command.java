@@ -44,7 +44,12 @@ public abstract class Command implements Serializable {
 	
 	public void showDescriptionAndExecute(Context context) {
 		this.context = context;
+		
+		for (int i = 0; i < commandArguments.length; i++)
+			this.arguments.get(i).checkArgumentOnServer(commandArguments[i]);
+		
 		showDescription();
+		
 		this.execute();
 	}
 	

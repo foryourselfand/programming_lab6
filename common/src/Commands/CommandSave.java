@@ -2,7 +2,6 @@ package Commands;
 
 import Expectations.Argument;
 import Expectations.ExpectedFile.*;
-import Utils.TempFileManager;
 
 import java.util.List;
 
@@ -25,7 +24,7 @@ public class CommandSave extends CommandWithNotEmptyCollection {
 	
 	@Override
 	public void execute() {
-		String filePath = TempFileManager.getTempFilePath();
+		String filePath = commandArguments[0];
 		this.context.csvSaver.saveCollectionToCSVFile(this.context.collectionManager.getCollection(), filePath);
 		stringBuilderResponse.append("Коллекция сохранена в файл\n");
 	}

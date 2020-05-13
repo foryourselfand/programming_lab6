@@ -3,6 +3,7 @@ package Input;
 import Generators.CreationDateGenerator;
 import Generators.IdGenerator;
 import SourseReaders.SourceReader;
+import Utils.Context;
 import Utils.LineReader;
 import Utils.ValueReader;
 
@@ -58,7 +59,7 @@ public class Flat implements Comparable<Flat>, Serializable {
 	}
 	
 	public void generateId() {
-		this.id = IdGenerator.generateId();
+		this.id = Context.idGenerator.generateId();
 	}
 	
 	public void setId(LineReader lineReader, SourceReader sourceReader) {

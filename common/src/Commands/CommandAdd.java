@@ -18,7 +18,8 @@ public class CommandAdd extends Command {
 	
 	@Override
 	public void execute() {
-		context.collectionManager.addFlatToCollectionAndPrint(flatNew, stringBuilderResponse);
+		context.collectionManager.addFlatToCollection(flatNew);
+		stringBuilderResponse.append("В коллекцию добавлен элемент ").append(flatNew.toString()).append("\n");
 	}
 	
 	@Override

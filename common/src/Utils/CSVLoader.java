@@ -36,7 +36,8 @@ public class CSVLoader implements Serializable {
 			
 			try {
 				Flat flat = FlatCreator.getCreatedFlatFromFile(lineReader, line, fieldToIndex);
-				collectionManager.addFlatToCollectionAndPrint(flat, CommandLoad.stringBuilderLoad);
+				collectionManager.addFlatToCollection(flat);
+				CommandLoad.stringBuilderLoad.append("В коллекцию добавлен элемент ").append(flat.toString()).append("\n");
 			} catch (InputErrorFull inputErrorFull) {
 				CommandLoad.stringBuilderLoad.append(inputErrorFull.getMessage()).append("\n");
 			}

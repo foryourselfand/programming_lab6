@@ -1,15 +1,16 @@
 package Expectations;
 
 import Generators.IdGenerator;
+import Utils.Context;
 
 /**
  * Ожидается существующий id
  */
-public class ExpectedIdExist implements Expectation {
+public class ExpectedIdExist implements ExpectationOnServer {
 	@Override
 	public void checkValueCorrectness(String valueRaw) {
 		long id = Long.parseLong(valueRaw);
-		if (! IdGenerator.containsId(id))
+		if (! Context.idGenerator.containsId(id))
 			throw createInputError();
 	}
 	

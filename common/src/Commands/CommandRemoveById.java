@@ -21,7 +21,8 @@ public class CommandRemoveById extends CommandWithNotEmptyCollection {
 	@Override
 	public void execute() {
 		long idToRemove = Long.parseLong(commandArguments[0]);
-		this.context.flatRemover.removeFlatsById(idToRemove);
+		this.context.collectionManager.removeFlatFromCollectionById(idToRemove);
+		stringBuilderResponse.append("Из коллекции удален элемент с id ").append(idToRemove).append("\n");
 	}
 	
 	@Override

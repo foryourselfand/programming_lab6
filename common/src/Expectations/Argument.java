@@ -44,10 +44,24 @@ public class Argument implements Serializable {
 	 */
 	public void checkArgument(String valueForCheck) {
 		for (Expectation expectation : this.expectations) {
-			try {
-				expectation.checkValueCorrectness(valueForCheck);
-			} catch (InputError inputError) {
-				throw new WrongArgumentError(this.getName(), inputError.getMessage());
+			if (! (expectation instanceof ExpectationOnServer)) {
+				try {
+					expectation.checkValueCorrectness(valueForCheck);
+				} catch (InputError inputError) {
+					throw new WrongArgumentError(this.getName(), inputError.getMessage());
+				}
+			}
+		}
+	}
+	
+	public void checkArgumentOnServer(String valueForCheck) {
+		for (Expectation expectation : this.expectations) {
+			if (expectation instanceof ExpectationOnServer) {
+				try {
+					expectation.checkValueCorrectness(valueForCheck);
+				} catch (InputError inputError) {
+					throw new WrongArgumentError(this.getName(), inputError.getMessage());
+				}
 			}
 		}
 	}

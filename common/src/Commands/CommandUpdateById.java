@@ -40,11 +40,13 @@ public class CommandUpdateById extends CommandWithNotEmptyCollection {
 	}
 	
 	private void removeFlatOld(long idToRemove) {
-		context.flatRemover.removeFlatsById(idToRemove);
+		this.context.collectionManager.removeFlatFromCollectionById(idToRemove);
+		stringBuilderResponse.append("Из коллекции удален элемент с id ").append(idToRemove).append("\n");
 	}
 	
 	private void addFlatNew(Flat flatNew) {
-		context.collectionManager.addFlatToCollectionAndPrint(flatNew, stringBuilderResponse);
+		context.collectionManager.addFlatToCollection(flatNew);
+		stringBuilderResponse.append("В коллекцию добавлен элемент ").append(flatNew.toString()).append("\n");
 	}
 	
 	@Override

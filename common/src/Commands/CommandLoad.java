@@ -5,7 +5,6 @@ import Expectations.ExpectedFile.ExpectedFileExist;
 import Expectations.ExpectedFile.ExpectedFileExtensionCsv;
 import Expectations.ExpectedFile.ExpectedFileReadable;
 import Expectations.ExpectedFile.ExpectedFileRegular;
-import Generators.IdGenerator;
 import Utils.CSVLoader;
 import Utils.Context;
 
@@ -39,7 +38,7 @@ public class CommandLoad extends Command {
 		stringBuilderLoad = new StringBuilder();
 		
 		this.context.collectionManager.clearCollection();
-		IdGenerator.clear();
+		Context.idGenerator.clear();
 		this.csvLoader.createCollectionFromFile(commandArguments[0], Context.lineReader, context.collectionManager);
 		this.context.collectionManager.changeInitializationDate();
 		
