@@ -2,10 +2,7 @@ package Commands;
 
 import Input.Flat;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Команда группировки эллементов коллекции по значению поля площади
@@ -38,10 +35,15 @@ public class CommandGroupCountingByArea extends CommandWithNotEmptyCollection {
 	
 	private void printGroupCountingByArea(Map<Integer, List<Flat>> areaToFlatListMap) {
 		for (Map.Entry<Integer, List<Flat>> areaToFlatList : areaToFlatListMap.entrySet()) {
-			stringBuilderResponse.append("Группа area=").append(areaToFlatList.getKey()).append("; Количество=").append(areaToFlatList.getValue().size());
-			for (Flat flat : areaToFlatList.getValue())
-				stringBuilderResponse.append(flat.toString());
-			stringBuilderResponse.append("\n");
+			stringBuilderResponse.append("Группа area=").append(areaToFlatList.getKey()).append("; Количество=").append(areaToFlatList.getValue().size()).append("\n");
+			List<Flat> flatList = areaToFlatList.getValue();
+			
+			List<Flat> flatListSorted = new ArrayList<>(flatList);
+			flatListSorted.sort(Flat.comparatorByName);
+			
+			for (Flat flat : flatListSorted) {
+				stringBuilderResponse.append(flat.toString()).append("\n");
+			}
 		}
 	}
 	

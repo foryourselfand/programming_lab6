@@ -3,10 +3,7 @@ package Commands;
 import Input.Flat;
 import Input.House;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Команда вывода уникальных значений поля дом
@@ -20,7 +17,11 @@ public class CommandPrintUniqueHouse extends CommandWithNotEmptyCollection {
 	public void execute() {
 		Map<House, Integer> houseToCountMap = getHouseToCountMap();
 		List<House> uniqueHouses = getUniqueHouses(houseToCountMap);
-		printUniqueHouses(uniqueHouses);
+		
+		List<House> uniqueHousesSort = new ArrayList<>(uniqueHouses);
+		uniqueHousesSort.sort(Comparator.comparing(House::getHouseName));
+		
+		printUniqueHouses(uniqueHousesSort);
 	}
 	
 	private Map<House, Integer> getHouseToCountMap() {

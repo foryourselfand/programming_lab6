@@ -4,8 +4,10 @@ import Generators.IdGenerator;
 import Input.Flat;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
+import java.util.List;
 
 public class CollectionManager {
 	private final LinkedHashSet<Flat> collection;
@@ -19,6 +21,12 @@ public class CollectionManager {
 	
 	public LinkedHashSet<Flat> getCollection() {
 		return collection;
+	}
+	
+	public List<Flat> getCollectionSortedByName() {
+		List<Flat> collectionList = new ArrayList<>(collection);
+		collectionList.sort(Flat.comparatorByName);
+		return collectionList;
 	}
 	
 	public Flat getFlatMax() {
@@ -45,13 +53,16 @@ public class CollectionManager {
 		System.out.println("Из коллекции удален элемент " + flatToRemove.toString());
 	}
 	
-	public String getCollectionString() {
+	public String getCollectionString(Iterable<Flat> collection) {
 		StringBuilder stringBuilder = new StringBuilder();
-		for (Flat flat : this.collection)
+		for (Flat flat : collection)
 			stringBuilder.append(flat).append("\n");
 		return stringBuilder.toString();
 	}
 	
+	public String getCollectionSortedString() {
+		return getCollectionString(getCollectionSortedByName());
+	}
 	
 	public void changeInitializationDate() {
 		if (! collection.isEmpty())

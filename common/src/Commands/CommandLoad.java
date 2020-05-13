@@ -44,6 +44,9 @@ public class CommandLoad extends Command {
 		this.context.collectionManager.changeInitializationDate();
 		
 		stringBuilderResponse = new StringBuilder(stringBuilderLoad);
+		stringBuilderResponse.append("Элементы коллекции в строковом представлении:\n");
+		
+		stringBuilderResponse.append(context.collectionManager.getCollectionSortedString());
 	}
 	
 	@Override
