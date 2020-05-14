@@ -8,11 +8,14 @@ public class ServerMain {
 	public static final Logger logger = Logger.getLogger(ServerMain.class.getName());
 	
 	public static void main(String[] args) {
-		int port = 8000;
+		ServerArgsGetter argsGetter = new ServerArgsGetter(args);
+		int port = argsGetter.getPort();
+		String CSVFilePath = argsGetter.getCSVFilePath();
+		logger.info(String.format("port: %d\t\tcsv file path: %s\n", port, CSVFilePath));
 		
 		Context context = new Context();
 		
-		context.loadCollectionFromArgs(args);
+		context.loadCollection(CSVFilePath);
 		
 		try {
 			Server.connect(port);

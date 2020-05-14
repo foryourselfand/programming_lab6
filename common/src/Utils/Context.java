@@ -28,23 +28,21 @@ public class Context {
 		this.csvSaver = new CSVSaver();
 	}
 	
-	public void loadCollectionFromArgs(String[] args) {
-		if (args.length == 1) {
-			logger.info("Trying to load collection from csv file");
+	public void loadCollection(String csvFilePath) {
+		logger.info("Trying to load collection from csv file");
+		
+		Command commandLoad = commandsHolder.getCommandByName("load");
+		try {
+			commandLoad.validateArguments(new String[]{csvFilePath});
+			commandLoad.showDescriptionAndExecute(this);
 			
-			Command commandLoad = commandsHolder.getCommandByName("load");
-			try {
-				commandLoad.validateArguments(args);
-				commandLoad.showDescriptionAndExecute(this);
-				
-				Command commandShow = commandsHolder.getCommandByName("show");
-				commandShow.validateArguments(new String[]{});
-				commandShow.showDescriptionAndExecute(this);
-				
-				logger.info("Successfully load collection from csv file");
-			} catch (InputError inputError) {
-				logger.log(Level.SEVERE, "Error while trying to load deque from csv file", inputError);
-			}
+			Command commandShow = commandsHolder.getCommandByName("show");
+			commandShow.validateArguments(new String[]{});
+			commandShow.showDescriptionAndExecute(this);
+			
+			logger.info("Successfully load collection from csv file");
+		} catch (InputError inputError) {
+			logger.log(Level.SEVERE, "Error while trying to load deque from csv file", inputError);
 		}
 	}
 }

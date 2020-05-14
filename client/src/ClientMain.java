@@ -4,8 +4,10 @@ import Utils.Context;
 
 public class ClientMain {
 	public static void main(String[] args) {
-		String host = "localhost";
-		int port = 8000;
+		ClientArgsGetter argsGetter = new ClientArgsGetter(args);
+		String host = argsGetter.getHost();
+		int port = argsGetter.getPort();
+		System.out.format("host: %s\t\tport: %d\n", host, port);
 		
 		try {
 			Client.connect(host, port);
