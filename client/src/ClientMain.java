@@ -1,8 +1,6 @@
+import Errors.InputErrors.InputError;
 import Utils.CommandsHolder;
 import Utils.Context;
-
-import java.net.SocketException;
-import java.net.UnknownHostException;
 
 public class ClientMain {
 	public static void main(String[] args) {
@@ -11,8 +9,8 @@ public class ClientMain {
 		
 		try {
 			Client.connect(host, port);
-		} catch (UnknownHostException | SocketException e) {
-			e.printStackTrace();
+		} catch (InputError inputError) {
+			System.out.println(inputError.getMessage());
 		}
 		
 		CommandsHolder commandsHolder = new CommandsHolder();

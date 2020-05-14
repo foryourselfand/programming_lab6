@@ -1,6 +1,7 @@
 import Commands.Command;
 import Commands.CommandExit;
 import Commands.CommandSave;
+import Errors.ConnectionError;
 import Errors.InputErrors.InputError;
 import Utils.Context;
 import Utils.Response;
@@ -12,8 +13,12 @@ import java.net.InetSocketAddress;
 import java.net.SocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Server {
+	public static final Logger logger = Logger.getLogger(Server.class.getName());
+	
 	private static final int DEFAULT_BUFFER_SIZE = 65536;
 	private static final byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
 	private static final SerializationManager<Command> commandSerializationManager = new SerializationManager<>();
@@ -21,11 +26,19 @@ public class Server {
 	private static SocketAddress address;
 	private static DatagramChannel channel;
 	
-	public static void connect(int port) throws IOException {
+	public static void connect(int port) {
+		logger.info("Start server initialization");
+		
 		address = new InetSocketAddress(port);
-		channel = DatagramChannel.open();
-		channel.configureBlocking(false);
-		channel.bind(address);
+		try {
+			channel = DatagramChannel.open();
+			channel.configureBlocking(false);
+			channel.bind(address);
+		} catch (IOException e) {
+			throw new ConnectionError();
+		}
+		
+		logger.info("Connection is established, listen port: " + port);
 	}
 	
 	public static void run(Context context) {
@@ -36,10 +49,12 @@ public class Server {
 					address = channel.receive(byteBuffer);
 				} while (address == null);
 				Command command = commandSerializationManager.readObject(buffer);
-				System.out.println("Сервер получил команду " + command);
+				
+				logger.log(Level.INFO, "Server receive command" + command);
+				
 				String response = processCommand(context, command);
 				
-				System.out.println("Команда " + command + " выполнена, посылаю ответ клиенту...");
+				logger.log(Level.INFO, "Command " + command + " executed, sending response to client");
 				
 				byte[] answer = responseSerializationManager.writeObject(new Response(response));
 				byteBuffer = ByteBuffer.wrap(answer);

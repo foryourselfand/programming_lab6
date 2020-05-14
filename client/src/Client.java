@@ -1,5 +1,6 @@
 import Commands.Command;
 import Commands.CommandExit;
+import Errors.ConnectionError;
 import Errors.TimeoutError;
 import Utils.Response;
 import Utils.SerializationManager;
@@ -15,12 +16,17 @@ public class Client {
 	private static SocketAddress socketAddress;
 	private static DatagramSocket datagramSocket;
 	
-	public static void connect(String host, int port) throws UnknownHostException, SocketException {
-		InetAddress inetAddress = InetAddress.getByName(host);
-		System.out.println("Подключение к " + inetAddress);
-		socketAddress = new InetSocketAddress(inetAddress, port);
-		datagramSocket = new DatagramSocket();
-		datagramSocket.connect(socketAddress);
+	public static void connect(String host, int port) {
+		try {
+			InetAddress inetAddress = InetAddress.getByName(host);
+			System.out.println("Подключение к " + inetAddress);
+			socketAddress = new InetSocketAddress(inetAddress, port);
+			datagramSocket = new DatagramSocket();
+			datagramSocket.connect(socketAddress);
+		} catch (UnknownHostException | SocketException e) {
+			throw new ConnectionError();
+		}
+		
 	}
 	
 	public static void sendCommandAndReceiveAnswer(Command command) {

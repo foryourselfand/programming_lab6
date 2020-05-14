@@ -6,8 +6,12 @@ import Generators.CreationDateGenerator;
 import Generators.IdGenerator;
 
 import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Context {
+	public static final Logger logger = Logger.getLogger(Context.class.getName());
+	
 	public static final LocalDate INITIALIZATION_DATE = CreationDateGenerator.generateCreationDate();
 	public static final int HISTORY_SIZE = 12;
 	public static final IdGenerator idGenerator = new IdGenerator();
@@ -26,7 +30,7 @@ public class Context {
 	
 	public void loadCollectionFromArgs(String[] args) {
 		if (args.length == 1) {
-			System.out.println("Загрузка коллекции из файла");
+			logger.info("Trying to load collection from csv file");
 			
 			Command commandLoad = commandsHolder.getCommandByName("load");
 			try {
@@ -37,10 +41,9 @@ public class Context {
 				commandShow.validateArguments(new String[]{});
 				commandShow.showDescriptionAndExecute(this);
 				
-				System.out.println("Коллекция загружена из файла");
-				System.out.println(commandShow.getResponse());
+				logger.info("Successfully load collection from csv file");
 			} catch (InputError inputError) {
-				System.out.println(inputError.getMessage());
+				logger.log(Level.SEVERE, "Error while trying to load deque from csv file", inputError);
 			}
 		}
 	}
