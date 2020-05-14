@@ -1,6 +1,7 @@
 package Utils;
 
 import Commands.Command;
+import Errors.InputErrors.InputError;
 import Generators.CreationDateGenerator;
 import Generators.IdGenerator;
 
@@ -25,9 +26,22 @@ public class Context {
 	
 	public void loadCollectionFromArgs(String[] args) {
 		if (args.length == 1) {
+			System.out.println("Загрузка коллекции из файла");
+			
 			Command commandLoad = commandsHolder.getCommandByName("load");
-			commandLoad.validateArguments(args);
-			commandLoad.showDescriptionAndExecute(this);
+			try {
+				commandLoad.validateArguments(args);
+				commandLoad.showDescriptionAndExecute(this);
+				
+				Command commandShow = commandsHolder.getCommandByName("show");
+				commandShow.validateArguments(new String[]{});
+				commandShow.showDescriptionAndExecute(this);
+				
+				System.out.println("Коллекция загружена из файла");
+				System.out.println(commandShow.getResponse());
+			} catch (InputError inputError) {
+				System.out.println(inputError.getMessage());
+			}
 		}
 	}
 }
