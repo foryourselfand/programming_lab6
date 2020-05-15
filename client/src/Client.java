@@ -40,7 +40,7 @@ public class Client {
 			datagramSocket.setSoTimeout(TIMEOUT);
 			try {
 				datagramSocket.receive(datagramPacket);
-			} catch (SocketTimeoutException socketTimeoutException) {
+			} catch (SocketTimeoutException | PortUnreachableException exception) {
 				throw new TimeoutError();
 			}
 			
